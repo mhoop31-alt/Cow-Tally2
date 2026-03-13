@@ -5,93 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Livestock Counter</title>
     <style>
-        body {
+        /* This keeps everything inside the visible window */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevents scrolling */
             background-color: #000;
             color: white;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 15px;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            padding: 10px;
             box-sizing: border-box;
-            justify-content: space-between;
         }
 
         .section {
-            text-align: center;
-            flex: 1;
+            flex: 1; /* Automatically stretches to fill space */
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-bottom: 20px;
+            align-items: center;
+            padding: 5px;
         }
 
-        .header { color: #ffd700; font-size: 45px; font-weight: bold; margin-bottom: 5px; }
-        .number { font-size: 100px; font-weight: bold; margin: 10px 0; }
+        /* Responsive fonts - they shrink slightly on smaller screens */
+        .header { color: #ffd700; font-size: 8vw; font-weight: bold; }
+        .number { font-size: 18vw; font-weight: bold; line-height: 1; margin: 2vh 0; }
 
-        /* Main Add Buttons */
         .btn-add {
             color: white;
             border: none;
             border-radius: 12px;
-            padding: 25px;
             width: 100%;
-            font-size: 35px;
+            height: 12vh; /* Relative to screen height */
+            font-size: 7vw;
             font-weight: bold;
             cursor: pointer;
-            margin-bottom: 10px;
         }
-        .btn-cow { background-color: #28a745; } /* Green */
-        .btn-calf { background-color: #007bff; } /* Blue */
+        .btn-cow { background-color: #28a745; }
+        .btn-calf { background-color: #007bff; }
 
-        /* Small Controls */
-        .controls { display: flex; gap: 15px; }
+        .controls { 
+            display: flex; 
+            gap: 10px; 
+            width: 100%; 
+            margin-top: 10px;
+        }
         .btn-small {
-            background-color: #444;
+            background-color: #333;
             color: white;
             border: none;
             border-radius: 8px;
-            padding: 15px;
+            padding: 10px;
             flex: 1;
-            font-size: 25px;
+            font-size: 5vw;
             font-weight: bold;
         }
 
-        /* 3-Row Total Box */
+        /* Compact Summary Box */
         .total-box {
-            border: 3px solid #ffd700;
+            border: 2px solid #ffd700;
             border-radius: 15px;
-            padding: 15px;
-            background-color: #000;
-            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 18vh;
         }
-        .tally-row { font-size: 28px; font-weight: bold; margin: 5px 0; }
+        .tally-row { font-size: 5vw; font-weight: bold; text-align: center; }
         .cow-text { color: #28a745; }
         .calf-text { color: #007bff; }
-        .grand-total { 
-            font-size: 42px; 
-            color: #ffd700; 
-            border-top: 1px solid #333;
-            margin-top: 10px;
-            padding-top: 10px;
-        }
+        .grand-total { font-size: 8vw; color: #ffd700; border-top: 1px solid #444; padding-top: 5px; }
 
-        /* Popup Styles */
+        /* Confirmation Popup */
         #overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
             justify-content: center; align-items: center;
             z-index: 1000;
         }
         .popup {
             background: #222;
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
             text-align: center;
             width: 80%;
+            border: 1px solid #ffd700;
         }
         .popup-btns { display: flex; gap: 20px; margin-top: 20px; }
         .btn-yes { background: #dc3545; color: white; border: none; padding: 15px; flex: 1; font-size: 20px; border-radius: 8px; }
@@ -123,12 +128,12 @@
     <div class="total-box">
         <div class="tally-row cow-text">Cow Tally: <span id="res-cow">0</span></div>
         <div class="tally-row calf-text">Calf Tally: <span id="res-calf">0</span></div>
-        <div class="tally-row grand-total">GRAND TOTAL: <span id="res-total">0</span></div>
+        <div class="tally-row grand-total">TOTAL: <span id="res-total">0</span></div>
     </div>
 
     <div id="overlay">
         <div class="popup">
-            <h2 id="popup-text" style="font-size: 30px;">Clear counts?</h2>
+            <h2 id="popup-text">Clear counts?</h2>
             <div class="popup-btns">
                 <button class="btn-yes" onclick="resetConfirmed()">YES</button>
                 <button class="btn-no" onclick="hideReset()">NO</button>
@@ -171,3 +176,4 @@
     </script>
 </body>
 </html>
+
